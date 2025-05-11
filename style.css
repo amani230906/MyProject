@@ -238,6 +238,10 @@ img { width: 100%; display: block; border-radius: 8px; }
 }
 .avatar-container {
   text-align: center;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 #avatar {
   width: 100px;
