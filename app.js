@@ -1,21 +1,119 @@
-const arrows = document.querySelectorAll(".arrow");
-const movieLists = document.querySelectorAll(".movie-list");
+const movies = [
+  { id:1, title:'Inception', img:'https://www.themoviedb.org/t/p/w1280/7SivRwOLuA6DR09zNJ9JIo14GyX.jpg', tmdbId:27205 },
+  { id:2, title:'Interstellar', img:'https://image.tmdb.org/t/p/w500/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg', tmdbId:157336 },
+  { id:3, title:'The Dark Knight', img:'https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg', tmdbId:155 },
+  { id:4, title:'Parasite', img:'https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg', tmdbId:496243 },
+  { id:5, title:'The Matrix', img:'https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg', tmdbId:603 },
+  { id:6, title:'Fight Club', img:'https://image.tmdb.org/t/p/w500/bptfVGEQuv6vDTIMVCHjJ9Dz8PX.jpg', tmdbId:550 },
+  { id: 7, title: 'The Shawshank Redemption', img: 'https://www.themoviedb.org/t/p/w1280/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg', tmdbId: 278 },
+  { id: 8, title: 'Pulp Fiction',      img: 'https://www.themoviedb.org/t/p/w1280/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg', tmdbId: 680 }
+];
 
-arrows.forEach((arrow, i) => {
-  const itemNumber = movieLists[i].querySelectorAll("img").length;
-  let clickCounter = 0;
-  arrow.addEventListener("click", () => {
-    const ratio = Math.floor(window.innerWidth / 270);
-    clickCounter++;
-    if (itemNumber - (4 + clickCounter) + (4 - ratio) >= 0) {
-      movieLists[i].style.transform = `translateX(${
-        movieLists[i].computedStyleMap().get("transform")[0].x.value - 300
-      }px)`;
-    } else {
-      movieLists[i].style.transform = "translateX(0)";
-      clickCounter = 0;
+const sel = {
+  newReleases: document.getElementById('newReleases'),
+  trending: document.getElementById('trending'),
+  favorites: document.getElementById('favorites'),
+  exploreGrid: document.getElementById('exploreGrid'),
+  favCount: document.getElementById('favCount'),
+  clearFavs: document.getElementById('clearFavs'),
+  searchInput: document.getElementById('searchInput'),
+  searchBtn: document.getElementById('searchBtn')
+};
+
+const tpl = document.getElementById('movieCardTemplate');
+
+function getFavs() {
+  return JSON.parse(localStorage.getItem('myflix_favs')) || [];
+}
+function setFavs(arr) {
+  localStorage.setItem('myflix_favs', JSON.stringify(arr));
+}
+
+function render(list, container) {
+  if (!container) return;
+  container.innerHTML = '';
+  const favs = getFavs();
+  list.forEach(m => {
+    const node = tpl.content.cloneNode(true);
+    const card = node.querySelector('.movie-card');
+    card.dataset.url = `https://www.themoviedb.org/movie/${m.tmdbId}`;
+    node.querySelector('.movie-img').src = m.img;
+    node.querySelector('.movie-img').alt = m.title;
+    node.querySelector('.movie-title').textContent = m.title;
+
+    const watch = node.querySelector('.watch-btn');
+    const save  = node.querySelector('.save-btn');
+
+    if (favs.includes(m.id)) {
+      save.textContent = 'Saved';
+      save.disabled = true;
     }
-  });
 
-  console.log(Math.floor(window.innerWidth / 270));
+    watch.addEventListener('click', e => {
+      e.stopPropagation();
+      window.open(card.dataset.url, '_blank');
+    });
+
+    save.addEventListener('click', e => {
+      e.stopPropagation();
+      if (!favs.includes(m.id)) {
+        favs.push(m.id);
+        setFavs(favs);
+        save.textContent = 'Saved';
+        save.disabled = true;
+        updateFavs();
+      }
+    });
+
+    card.addEventListener('click', () => {
+      window.open(card.dataset.url, '_blank');
+    });
+
+    container.appendChild(node);
+  });
+}
+
+function updateFavs() {
+  const favs = getFavs();
+  if (sel.favCount) sel.favCount.textContent = favs.length;
+  render(movies.filter(m => favs.includes(m.id)), sel.favorites);
+}
+
+function initHome() {
+  render(movies.slice(0,4), sel.newReleases);
+  render(movies.slice(2,6), sel.trending);
+  updateFavs();
+}
+
+function initExplore() {
+  render(movies, sel.exploreGrid);
+}
+
+function initSearch() {
+  if (!sel.searchBtn) return;
+  sel.searchBtn.addEventListener('click', () => {
+    const q = sel.searchInput.value.trim().toLowerCase();
+    if (!q) { initHome(); return; }
+    const res = movies.filter(m => m.title.toLowerCase().includes(q));
+    render(res, sel.newReleases);
+    if (sel.trending) sel.trending.innerHTML = '';
+    if (sel.favorites) sel.favorites.innerHTML = '';
+  });
+}
+
+function initClear() {
+  if (!sel.clearFavs) return;
+  sel.clearFavs.addEventListener('click', () => {
+    setFavs([]);
+    updateFavs();
+    
+  alert("Cleared!");
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  initSearch();
+  initClear();
+  if (sel.exploreGrid) initExplore();
+  else initHome();
 });
