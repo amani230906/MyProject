@@ -1,12 +1,60 @@
 const movies = [
-  { id:1, title:'Inception', img:'https://www.themoviedb.org/t/p/w1280/7SivRwOLuA6DR09zNJ9JIo14GyX.jpg', tmdbId:27205 },
-  { id:2, title:'Interstellar', img:'https://image.tmdb.org/t/p/w500/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg', tmdbId:157336 },
-  { id:3, title:'The Dark Knight', img:'https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg', tmdbId:155 },
-  { id:4, title:'Parasite', img:'https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg', tmdbId:496243 },
-  { id:5, title:'The Matrix', img:'https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg', tmdbId:603 },
-  { id:6, title:'Fight Club', img:'https://image.tmdb.org/t/p/w500/bptfVGEQuv6vDTIMVCHjJ9Dz8PX.jpg', tmdbId:550 },
-  { id: 7, title: 'The Shawshank Redemption', img: 'https://www.themoviedb.org/t/p/w1280/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg', tmdbId: 278 },
-  { id: 8, title: 'Pulp Fiction',      img: 'https://www.themoviedb.org/t/p/w1280/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg', tmdbId: 680 }
+  { 
+    id: 1, 
+    title: 'Inception', 
+    img: 'https://www.themoviedb.org/t/p/w1280/7SivRwOLuA6DR09zNJ9JIo14GyX.jpg', 
+    tmdbId: 27205, 
+    synopsis: ' A skilled thief enters dreams to steal secrets but faces challenges when tasked with planting an idea.' 
+  },
+  { 
+    id: 2, 
+    title: 'Interstellar', 
+    img: 'https://image.tmdb.org/t/p/w500/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg', 
+    tmdbId: 157336, 
+    synopsis: 'Explorers travel through a wormhole to find a new home for humanity.' 
+  },
+  { 
+    id: 3, 
+    title: 'The Dark Knight', 
+    img: 'https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg', 
+    tmdbId: 155, 
+    synopsis: 'Batman battles the Joker, a criminal mastermind wreaking havoc in Gotham.' 
+  },
+  { 
+    id: 4, 
+    title: 'Parasite', 
+    img: 'https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg', 
+    tmdbId: 496243, 
+    synopsis: 'A poor family cunningly infiltrates a wealthy household, but their scheme leads to chaos.' 
+  },
+  { 
+    id: 5, 
+    title: 'The Matrix', 
+    img: 'https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg', 
+    tmdbId: 603, 
+    synopsis: 'A hacker discovers reality is a simulation controlled by machines.' 
+  },
+  { 
+    id: 6, 
+    title: 'Fight Club', 
+    img: 'https://image.tmdb.org/t/p/w500/bptfVGEQuv6vDTIMVCHjJ9Dz8PX.jpg', 
+    tmdbId: 550, 
+    synopsis: 'An office worker forms an underground fight club that spirals into chaos.' 
+  },
+  { 
+    id: 7, 
+    title: 'The Shawshank Redemption', 
+    img: 'https://www.themoviedb.org/t/p/w1280/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg', 
+    tmdbId: 278, 
+    synopsis: 'Two imprisoned men find solace and redemption through acts of decency.' 
+  },
+  { 
+    id: 8, 
+    title: 'Pulp Fiction', 
+    img: 'https://www.themoviedb.org/t/p/w1280/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg', 
+    tmdbId: 680, 
+    synopsis: 'Interwoven stories of crime and redemption unfold in Los Angeles.' 
+  }
 ];
 
 const sel = {
@@ -40,9 +88,10 @@ function render(list, container) {
     node.querySelector('.movie-img').src = m.img;
     node.querySelector('.movie-img').alt = m.title;
     node.querySelector('.movie-title').textContent = m.title;
+    node.querySelector('.movie-synopsis').textContent = m.synopsis;
 
     const watch = node.querySelector('.watch-btn');
-    const save  = node.querySelector('.save-btn');
+    const save = node.querySelector('.save-btn');
 
     if (favs.includes(m.id)) {
       save.textContent = 'Saved';
@@ -106,8 +155,7 @@ function initClear() {
   sel.clearFavs.addEventListener('click', () => {
     setFavs([]);
     updateFavs();
-    
-  alert("Cleared!");
+    alert("Cleared!");
   });
 }
 
