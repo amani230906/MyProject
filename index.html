@@ -1,22 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kyrgyzfilm</title>
   <link rel="stylesheet" href="style.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
 </head>
 <body>
   <nav class="navbar">
       <h1 class="logo"><a href="index.html">Kyrgyzfilm</a></h1>
       <ul class="nav-menu">
-        <button id="menuToggle" class="hamburger">
-          <span></span><span></span><span></span>
-        </button>
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="explore.html">Explore</a></li>
         <li><a href="profile.html">Profile</a></li>
@@ -30,44 +25,53 @@
   <section class="hero">
     <div class="hero-content">
       <h1>Welcome to Kyrgyzfilm</h1>
-      <a href="explore.html" class="btn btn-primary">Explore Now</a>
+      <p>Discover the best movies and build your watchlist.</p>
+    </div>
+  </section>
+
+  <section class="featured">
+    <div class="featured-content">
+      <h2>Featured Movie</h2>
+      <p>Check out the latest blockbuster!</p>
+      <button class="btn btn-neon" onclick="window.location.href='explore.html'"><i class="fas fa-play"></i> Explore Now</button>
     </div>
   </section>
 
   <main class="content">
     <h2>New Releases</h2>
     <div id="newReleases" class="movie-row"></div>
-
-    <h2>Trending Now</h2>
+    <h2>Trending</h2>
     <div id="trending" class="movie-row"></div>
-
-    <h2>Your Favorites</h2>
-    <div id="favorites" class="movie-row"></div>
   </main>
 
   <template id="movieCardTemplate">
-    <div class="movie-card">
+    <div class="movie-card glass-card">
       <img src="" alt="" class="movie-img"/>
       <h3 class="movie-title"></h3>
       <p class="movie-synopsis"></p>
+      <div class="movie-rating">
+        <span class="rating-stars" data-id=""></span>
+      </div>
       <div class="movie-actions">
-        <button class="btn btn-primary watch-btn">Watch</button>
-        <button class="btn btn-secondary save-btn">Save</button>
+        <button class="btn btn-neon watch-btn">Watch</button>
+        <button class="btn btn-neon save-btn">Save</button>
       </div>
     </div>
   </template>
 
+  <div id="notification" class="notification"></div>
+
   <footer>
     <div class="footer-section">
-      <h3>About</h3>
-      <p>Kyrgyzfilm – your personal movie guide.</p>
+      <h3>Kyrgyzfilm</h3>
+      <p>© 2025 Kyrgyzfilm. All rights reserved.</p>
     </div>
     <div class="footer-section">
       <h3>Follow Us</h3>
       <div class="social-icons">
-        <a href="https://www.facebook.com/p/%D0%9A%D1%8B%D1%80%D0%B3%D1%8B%D0%B7%D1%84%D0%B8%D0%BB%D1%8C%D0%BC-%D0%9A%D0%B8%D0%BD%D0%BE%D1%81%D1%82%D1%83%D0%B4%D0%B8%D1%8F%D1%81%D1%8B-100068844084338/"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
         <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="https://www.instagram.com/kyrgyzfilm.kg/"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
       </div>
     </div>
   </footer>

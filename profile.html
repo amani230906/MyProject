@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
 </head>
 <body>
-
   <nav class="navbar">
       <h1 class="logo"><a href="index.html">Kyrgyzfilm</a></h1>
       <ul class="nav-menu">
@@ -20,14 +19,53 @@
   </nav>
 
   <main class="content profile-page">
-    <h2>Your Profile</h2>
-    <div class="profile-info">
-      <p><strong>Username:</strong> Guest</p>
-      <p><strong>Favorites:</strong> <span id="favCount">0</span> movies</p>
+    <div class="profile-header">
+      <h2 class="neon-text">Your Profile</h2>
+      <div class="profile-info">
+        <div class="avatar-container">
+          <img id="avatar" src="https://via.placeholder.com/100" alt="Avatar"/>
+          <input type="file" id="avatarInput" accept="image/*" style="display: none;"/>
+          <button id="uploadAvatar" class="btn btn-neon"><i class="fas fa-camera"></i> Change Avatar</button>
+        </div>
+        <div class="user-details">
+          <p><strong>Username:</strong> <span id="username">Guest</span></p>
+          <div class="edit-username">
+            <input type="text" id="usernameInput" placeholder="Enter new username"/>
+            <button id="saveUsername" class="btn btn-neon"><i class="fas fa-save"></i> Save</button>
+          </div>
+          <p><strong>Favorites:</strong> <span id="favCount">0</span> / 12 movies</p>
+          <div class="progress-bar">
+            <div id="progress" style="width: 0%;"></div>
+          </div>
+          <p><strong>Last Added:</strong> <span id="lastAdded">None</span></p>
+        </div>
+      </div>
+      <button id="clearFavs" class="btn btn-neon"><i class="fas fa-trash"></i> Clear Favorites</button>
     </div>
-    <button id="clearFavs" class="btn btn-secondary">Clear Favorites</button>
+
+    <h2 class="neon-text">Your Favorite Movies</h2>
+    <div id="favorites" class="movie-row">
+      <p id="no-favorites" style="display: none;">No favorite movies yet. Add some from the Explore page!</p>
+    </div>
   </main>
 
+  <template id="movieCardTemplate">
+    <div class="movie-card glass-card">
+      <img src="" alt="" class="movie-img"/>
+      <h3 class="movie-title"></h3>
+      <p class="movie-synopsis"></p>
+      <div class="movie-rating">
+        <span class="rating-stars" data-id=""></span>
+      </div>
+      <div class="movie-actions">
+        <button class="btn btn-neon watch-btn">Watch</button>
+        <button class="btn btn-neon remove-btn">Remove</button>
+      </div>
+    </div>
+  </template>
+
+  <div id="notification" class="notification"></div>
+
   <script src="app.js"></script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93e1bfb27dd5c3c1',t:'MTc0Njk2NzI2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>

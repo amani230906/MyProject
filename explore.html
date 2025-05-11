@@ -19,20 +19,26 @@
   </nav>
 
   <main class="content">
-    <h2>Explore All Movies</h2>
+    <h2 class="neon-text">Explore All Movies</h2>
     <div id="exploreGrid" class="movie-row"></div>
   </main>
+
   <template id="movieCardTemplate">
-    <div class="movie-card">
+    <div class="movie-card glass-card">
       <img src="" alt="" class="movie-img"/>
       <h3 class="movie-title"></h3>
       <p class="movie-synopsis"></p>
+      <div class="movie-rating">
+        <span class="rating-stars" data-id=""></span>
+      </div>
       <div class="movie-actions">
-        <button class="btn btn-primary watch-btn">Watch</button>
-        <button class="btn btn-secondary save-btn">Save</button>
+        <button class="btn btn-neon watch-btn">Watch</button>
+        <button class="btn btn-neon save-btn">Save</button>
       </div>
     </div>
   </template>
+
+  <div id="notification" class="notification"></div>
 
   <script src="app.js"></script>
 </body>
